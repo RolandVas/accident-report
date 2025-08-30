@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { OPEN_AI_API } from '../../api/open-ai-api';
 import { UnfallFormData } from '../accident-data/accident-data.module';
 
 @Injectable()
@@ -73,7 +74,7 @@ export class RealtimeService {
       method: 'POST',
       body: offer.sdp,
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${OPEN_AI_API}`,
         'Content-Type': 'application/sdp',
       },
     });
