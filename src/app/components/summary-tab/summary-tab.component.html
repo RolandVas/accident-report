@@ -1,12 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UnfallFormData } from '../accident-data/accident-data.module';
 
-@Component({
-  selector: 'app-summary-tab',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
     <div class="card">
       <h2 class="section-title">Zusammenfassung & Übersicht</h2>
       
@@ -117,18 +109,3 @@ import { UnfallFormData } from '../accident-data/accident-data.module';
         </button>
       </div>
     </div>
-  `
-})
-export class SummaryTabComponent {
-  @Input() data: UnfallFormData | null = null;
-
-  printForm() {
-    window.print();
-  }
-
-  resetForm() {
-    if (confirm('Möchten Sie wirklich alle eingegebenen Daten löschen?')) {
-      window.location.reload();
-    }
-  }
-}
