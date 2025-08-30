@@ -35,4 +35,8 @@ export class RealtimeService {
       console.error('Failed to handle message', error);
     }
   }
+
+  stopSession(): void {
+    console.log('Realtime session stopped');
+  }
 }
