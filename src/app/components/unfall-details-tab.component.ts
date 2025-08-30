@@ -1,0 +1,188 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { UnfallDetails } from '../accident-data/accident-data.module';
+
+@Component({
+  selector: 'app-unfall-details-tab',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  template: `
+    <div class="card">
+      <h2 class="section-title">Unfalldetails & Hergang</h2>
+      
+      <form [formGroup]="unfallForm" (ngSubmit)="onSubmit()">
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label" for="unfallDatum">Unfalldatum *</label>
+            <input 
+              type="date" 
+              id="unfallDatum" 
+              formControlName="unfallDatum" 
+              class="form-input"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="unfallZeit">Unfallzeit *</label>
+            <input 
+              type="time" 
+              id="unfallZeit" 
+              formControlName="unfallZeit" 
+              class="form-input"
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="unfallOrt">Unfallort (Straße, Kreuzung, etc.) *</label>
+          <input 
+            type="text" 
+            id="unfallOrt" 
+            formControlName="unfallOrt" 
+            class="form-input"
+            placeholder="Hauptstraße / Ecke Bahnhofstraße, 12345 Musterstadt"
+          >
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label" for="witterung">Witterungsverhältnisse</label>
+            <select id="witterung" formControlName="witterung" class="form-select">
+              <option value="">Bitte wählen</option>
+              <option value="trocken">Trocken</option>
+              <option value="regen">Regen</option>
+              <option value="schnee">Schnee</option>
+              <option value="nebel">Nebel</option>
+              <option value="glatteis">Glatteis</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="strassenverhaeltnisse">Straßenverhältnisse</label>
+            <select id="strassenverhaeltnisse" formControlName="strassenverhaeltnisse" class="form-select">
+              <option value="">Bitte wählen</option>
+              <option value="trocken">Trocken</option>
+              <option value="nass">Nass</option>
+              <option value="eisig">Eisig</option>
+              <option value="verschmutzt">Verschmutzt</option>
+              <option value="baustelle">Baustelle</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="unfallhergang">Unfallhergang (detaillierte Beschreibung) *</label>
+          <textarea 
+            id="unfallhergang" 
+            formControlName="unfallhergang" 
+            class="form-textarea"
+            placeholder="Beschreiben Sie den Unfallhergang so genau wie möglich..."
+            rows="6"
+          ></textarea>
+        </div>
+
+        <div class="card" style="background-color: #f8fafc;">
+          <h3 class="section-title">Polizei & Zeugen</h3>
+          
+          <div class="checkbox-group">
+            <input 
+              type="checkbox" 
+              id="polizeiRuecksprache" 
+              formControlName="polizeiRuecksprache"
+            >
+            <label for="polizeiRuecksprache" class="form-label" style="margin-bottom: 0;">
+              Polizei wurde verständigt / war vor Ort
+            </label>
+          </div>
+
+          <div class="form-group" *ngIf="unfallForm.get('polizeiRuecksprache')?.value">
+            <label class="form-label" for="polizeiAktenzeichen">Polizei-Aktenzeichen</label>
+            <input 
+              type="text" 
+              id="polizeiAktenzeichen" 
+              formControlName="polizeiAktenzeichen" 
+              class="form-input"
+              placeholder="AZ: 12345/2025"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="zeugen">Zeugen (Name, Adresse, Telefon)</label>
+            <textarea 
+              id="zeugen" 
+              formControlName="zeugen" 
+              class="form-textarea"
+              placeholder="Max Zeuge, Zeugenstraße 1, 12345 Zeugenstadt, Tel: 0123/456789"
+              rows="3"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="card" style="background-color: #fef2f2;">
+          <h3 class="section-title">Personenschäden</h3>
+          
+          <div class="checkbox-group">
+            <input 
+              type="checkbox" 
+              id="verletzungen" 
+              formControlName="verletzungen"
+            >
+            <label for="verletzungen" class="form-label" style="margin-bottom: 0;">
+              Es gab Personenschäden / Verletzungen
+            </label>
+          </div>
+
+          <div class="form-group" *ngIf="unfallForm.get('verletzungen')?.value">
+            <label class="form-label" for="verletzungsBeschreibung">Beschreibung der Verletzungen</label>
+            <textarea 
+              id="verletzungsBeschreibung" 
+              formControlName="verletzungsBeschreibung" 
+              class="form-textarea"
+              placeholder="Art und Schwere der Verletzungen beschreiben..."
+              rows="4"
+            ></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+  `
+})
+export class UnfallDetailsTabComponent {
+  @Input() data: UnfallDetails | null = null;
+  @Output() dataChange = new EventEmitter<UnfallDetails>();
+  
+  unfallForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.unfallForm = this.fb.group({
+      unfallDatum: ['', Validators.required],
+      unfallZeit: ['', Validators.required],
+      unfallOrt: ['', Validators.required],
+      witterung: [''],
+      strassenverhaeltnisse: [''],
+      unfallhergang: ['', Validators.required],
+      polizeiRuecksprache: [false],
+      polizeiAktenzeichen: [''],
+      zeugen: [''],
+      verletzungen: [false],
+      verletzungsBeschreibung: ['']
+    });
+
+    this.unfallForm.valueChanges.subscribe(value => {
+      this.dataChange.emit(value);
+    });
+  }
+
+  ngOnInit() {
+    if (this.data) {
+      this.unfallForm.patchValue(this.data);
+    }
+  }
+
+  onSubmit() {
+    if (this.unfallForm.valid) {
+      this.dataChange.emit(this.unfallForm.value);
+    }
+  }
+}

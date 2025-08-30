@@ -1,0 +1,134 @@
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UnfallFormData } from '../accident-data/accident-data.module';
+
+@Component({
+  selector: 'app-summary-tab',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="card">
+      <h2 class="section-title">Zusammenfassung & Übersicht</h2>
+      
+      <div class="card" style="background-color: #f0f9ff;">
+        <h3 class="section-title">Persönliche Daten</h3>
+        <div class="summary-item">
+          <span class="summary-label">Name:</span>
+          <span class="summary-value">{{data?.personalData?.vorname}} {{data?.personalData?.nachname}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Geburtsdatum:</span>
+          <span class="summary-value">{{data?.personalData?.geburtsdatum | date:'dd.MM.yyyy'}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Adresse:</span>
+          <span class="summary-value">{{data?.personalData?.adresse}}, {{data?.personalData?.plz}} {{data?.personalData?.ort}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Telefon:</span>
+          <span class="summary-value">{{data?.personalData?.telefon || 'Nicht angegeben'}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Versicherung:</span>
+          <span class="summary-value">{{data?.personalData?.versicherung}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Polizzennummer:</span>
+          <span class="summary-value">{{data?.personalData?.polizzennummer}}</span>
+        </div>
+      </div>
+
+      <div class="card" style="background-color: #fef3f2;">
+        <h3 class="section-title">Unfalldetails</h3>
+        <div class="summary-item">
+          <span class="summary-label">Datum & Zeit:</span>
+          <span class="summary-value">{{data?.unfallDetails?.unfallDatum | date:'dd.MM.yyyy'}} um {{data?.unfallDetails?.unfallZeit}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Unfallort:</span>
+          <span class="summary-value">{{data?.unfallDetails?.unfallOrt}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Witterung:</span>
+          <span class="summary-value">{{data?.unfallDetails?.witterung || 'Nicht angegeben'}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Straßenverhältnisse:</span>
+          <span class="summary-value">{{data?.unfallDetails?.strassenverhaeltnisse || 'Nicht angegeben'}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Polizei verständigt:</span>
+          <span class="summary-value">{{data?.unfallDetails?.polizeiRuecksprache ? 'Ja' : 'Nein'}}</span>
+        </div>
+        <div class="summary-item" *ngIf="data?.unfallDetails?.polizeiRuecksprache && data?.unfallDetails?.polizeiAktenzeichen">
+          <span class="summary-label">Aktenzeichen:</span>
+          <span class="summary-value">{{data?.unfallDetails?.polizeiAktenzeichen}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Verletzungen:</span>
+          <span class="summary-value">{{data?.unfallDetails?.verletzungen ? 'Ja' : 'Nein'}}</span>
+        </div>
+      </div>
+
+      <div class="card" style="background-color: #f0fdf4;">
+        <h3 class="section-title">Fahrzeugdaten</h3>
+        <div class="summary-item">
+          <span class="summary-label">Fahrzeug:</span>
+          <span class="summary-value">{{data?.fahrzeugDaten?.marke}} {{data?.fahrzeugDaten?.modell}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Kennzeichen:</span>
+          <span class="summary-value">{{data?.fahrzeugDaten?.kennzeichen}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Baujahr:</span>
+          <span class="summary-value">{{data?.fahrzeugDaten?.baujahr || 'Nicht angegeben'}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Farbe:</span>
+          <span class="summary-value">{{data?.fahrzeugDaten?.farbe || 'Nicht angegeben'}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Geschätzte Schadenshöhe:</span>
+          <span class="summary-value">{{data?.fahrzeugDaten?.schadenshoehe ? (data?.fahrzeugDaten?.schadenshoehe | currency:'EUR':'symbol':'1.0-0') : 'Nicht angegeben'}}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Fahrbereit:</span>
+          <span class="summary-value">{{data?.fahrzeugDaten?.fahrzeugFahrbereit ? 'Ja' : 'Nein'}}</span>
+        </div>
+      </div>
+
+      <div class="card" style="background-color: #fffbeb;">
+        <h3 class="section-title">Unfallhergang</h3>
+        <p style="line-height: 1.6; color: #374151; white-space: pre-wrap;">{{data?.unfallDetails?.unfallhergang}}</p>
+      </div>
+
+      <div class="card" style="background-color: #fef3f2;">
+        <h3 class="section-title">Schadensbeschreibung</h3>
+        <p style="line-height: 1.6; color: #374151; white-space: pre-wrap;">{{data?.fahrzeugDaten?.schadensBeschreibung}}</p>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <button type="button" class="btn btn-primary" (click)="printForm()">
+          📄 Formular drucken
+        </button>
+        <button type="button" class="btn btn-secondary" style="margin-left: 1rem;" (click)="resetForm()">
+          🔄 Formular zurücksetzen
+        </button>
+      </div>
+    </div>
+  `
+})
+export class SummaryTabComponent {
+  @Input() data: UnfallFormData | null = null;
+
+  printForm() {
+    window.print();
+  }
+
+  resetForm() {
+    if (confirm('Möchten Sie wirklich alle eingegebenen Daten löschen?')) {
+      window.location.reload();
+    }
+  }
+}
