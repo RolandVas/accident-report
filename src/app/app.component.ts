@@ -74,10 +74,10 @@ export class AppComponent {
 
   assistant() {
     if (!this.assistantActive) {
-      // this.realtimeService.startSession('test');
+      this.realtimeService.startSession();
       this.assistantActive = true;
     } else {
-      // this.realtimeService.stopSession();
+      this.realtimeService.stopSession();
       this.assistantActive = false;
     }
   }

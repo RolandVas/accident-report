@@ -29,7 +29,7 @@ export class RealtimeService {
    * Stellt eine Verbindung zum OpenAI Realtime-Endpoint her
    * und richtet Audio- sowie Datenkanäle ein.
    */
-  async startSession(apiKey: string): Promise<void> {
+  async startSession(): Promise<void> {
     // Vorhandene Sitzung stoppen
     if (this.pc) {
       this.stopSession();
