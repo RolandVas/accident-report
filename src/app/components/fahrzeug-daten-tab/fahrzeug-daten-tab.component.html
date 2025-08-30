@@ -1,13 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { FahrzeugDaten } from '../accident-data/accident-data.module';
 
-@Component({
-  selector: 'app-fahrzeug-daten-tab',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  template: `
     <div class="card">
       <h2 class="section-title">Fahrzeugdaten & Schäden</h2>
       
@@ -139,42 +130,3 @@ import { FahrzeugDaten } from '../accident-data/accident-data.module';
         </div>
       </form>
     </div>
-  `
-})
-export class FahrzeugDatenTabComponent {
-  @Input() data: FahrzeugDaten | null = null;
-  @Output() dataChange = new EventEmitter<FahrzeugDaten>();
-  
-  fahrzeugForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.fahrzeugForm = this.fb.group({
-      marke: ['', Validators.required],
-      modell: ['', Validators.required],
-      kennzeichen: ['', Validators.required],
-      farbe: [''],
-      baujahr: [''],
-      fahrgestellnummer: [''],
-      schadenshoehe: [''],
-      schadensBeschreibung: ['', Validators.required],
-      reparaturWerkstatt: [''],
-      fahrzeugFahrbereit: [true]
-    });
-
-    this.fahrzeugForm.valueChanges.subscribe(value => {
-      this.dataChange.emit(value);
-    });
-  }
-
-  ngOnInit() {
-    if (this.data) {
-      this.fahrzeugForm.patchValue(this.data);
-    }
-  }
-
-  onSubmit() {
-    if (this.fahrzeugForm.valid) {
-      this.dataChange.emit(this.fahrzeugForm.value);
-    }
-  }
-}

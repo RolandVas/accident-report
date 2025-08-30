@@ -20,10 +20,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('accident-report');
   });
 
-  it('should render title', () => {
+  it('should render heading', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, accident-report');
+    expect(compiled.querySelector('h1')?.textContent).toContain('KFZ Unfall-Meldung');
   });
 });
+
