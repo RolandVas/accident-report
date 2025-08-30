@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RealtimeService } from './services/realtime.service';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PersonalDataTabComponent } from './components/personal-data-tab/personal-data-tab.component';
@@ -30,6 +31,16 @@ export class AppComponent {
     unfallDetails: {} as UnfallDetails,
     fahrzeugDaten: {} as FahrzeugDaten
   };
+
+  constructor(private realtime: RealtimeService) {
+    this.realtime.formUpdates$.subscribe(update => {
+      this.formData = {
+        personalData: { ...this.formData.personalData, ...(update.personalData || {}) },
+        unfallDetails: { ...this.formData.unfallDetails, ...(update.unfallDetails || {}) },
+        fahrzeugDaten: { ...this.formData.fahrzeugDaten, ...(update.fahrzeugDaten || {}) }
+      };
+    });
+  }
 
   setActiveTab(index: number) {
     this.activeTab = index;
