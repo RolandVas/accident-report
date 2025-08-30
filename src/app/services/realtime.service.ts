@@ -22,6 +22,8 @@ export class RealtimeService {
   private baseUrl = 'https://api.openai.com/v1/realtime';
   private model = 'gpt-4o-realtime-preview';
 
+  private test_api = 'asdfeloelokgok3242390423'
+
   constructor(private zone: NgZone) {}
 
   /**
@@ -76,7 +78,7 @@ export class RealtimeService {
       method: 'POST',
       body: offer.sdp,
       headers: {
-        Authorization: `Bearer ${OPEN_AI_API}`,
+        Authorization: `Bearer ${this.test_api}`,
         'Content-Type': 'application/sdp',
       },
     });
