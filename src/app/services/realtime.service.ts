@@ -20,7 +20,7 @@ export class RealtimeService {
 
   // Basis-URL und Model für den Realtime-Endpunkt
   private baseUrl = 'https://api.openai.com/v1/realtime';
-  private model = 'gpt-4o-realtime';
+  private model = 'gpt-4o-realtime-preview';
 
   constructor(private zone: NgZone) {}
 
@@ -58,11 +58,13 @@ export class RealtimeService {
       console.log('Realtime server event', e);
       try {
         const message = JSON.parse(e.data);
+        console.log('message', message)
         if (message.type === 'form_update' && message.data) {
           this.zone.run(() => this.formUpdatesSubject.next(message.data));
         }
       } catch {
         // Ignoriere fehlerhafte Nachrichten
+        console.log('fehler')
       }
     });
 
