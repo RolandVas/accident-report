@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UnfallDetails } from '../../accident-data/accident-data.module';
@@ -10,7 +10,7 @@ import { UnfallDetails } from '../../accident-data/accident-data.module';
   templateUrl: './unfall-details-tab.component.html',
   styleUrls: ['./unfall-details-tab.component.scss']
 })
-export class UnfallDetailsTabComponent {
+export class UnfallDetailsTabComponent implements OnChanges  {
   @Input() data: UnfallDetails | null = null;
   @Output() dataChange = new EventEmitter<UnfallDetails>();
 
@@ -38,7 +38,13 @@ export class UnfallDetailsTabComponent {
 
   ngOnInit() {
     if (this.data) {
-      this.unfallForm.patchValue(this.data);
+      this.unfallForm.patchValue(this.data, { emitEvent: false });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] && changes['data'].currentValue) {
+      this.unfallForm.patchValue(changes['data'].currentValue, { emitEvent: false });
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PersonalData } from '../../accident-data/accident-data.module';
@@ -10,7 +10,7 @@ import { PersonalData } from '../../accident-data/accident-data.module';
   templateUrl: './personal-data-tab.component.html',
   styleUrls: ['./personal-data-tab.component.scss']
 })
-export class PersonalDataTabComponent {
+export class PersonalDataTabComponent implements OnChanges {
   @Input() data: PersonalData | null = null;
   @Output() dataChange = new EventEmitter<PersonalData>();
 
@@ -38,7 +38,13 @@ export class PersonalDataTabComponent {
 
   ngOnInit() {
     if (this.data) {
-      this.personalForm.patchValue(this.data);
+      this.personalForm.patchValue(this.data, { emitEvent: false });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] && changes['data'].currentValue) {
+      this.personalForm.patchValue(changes['data'].currentValue, { emitEvent: false });
     }
   }
 

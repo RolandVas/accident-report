@@ -42,6 +42,10 @@ export class AppComponent {
         fahrzeugDaten: { ...this.formData.fahrzeugDaten, ...(update.fahrzeugDaten || {}) }
       };
     });
+
+    this.realtime.tabChange$.subscribe(index => {
+      this.activeTab = index;
+    });
   }
 
   setActiveTab(index: number) {

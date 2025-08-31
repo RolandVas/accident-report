@@ -1,84 +1,67 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-4xl mx-auto px-4">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">KFZ Unfall-Meldung</h1>
+      <p class="text-gray-600">Erfassen Sie alle relevanten Daten zu Ihrem Verkehrsunfall</p>
+    </header>
 
-    <div class="min-h-screen bg-gray-50 py-8">
-      <div class="max-w-4xl mx-auto px-4">
-        <header class="text-center mb-8">
-          <h1 class="text-3xl font-bold text-gray-900 mb-2">KFZ Unfall-Meldung</h1>
-          <p class="text-gray-600">Erfassen Sie alle relevanten Daten zu Ihrem Verkehrsunfall</p>
-        </header>
+    <div class="max-w-4xl mx-auto flex justify-center">
+      @if (assistantActive) {
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAABDCAYAAADHyrhzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEYElEQVR4nO2aW2gcZRTHPy9ttUXQigre0Whx7c454+IFUSJ2d87JhbYoK15ARMULvggKarFEFBTUInlpOudMElP0JT7VCz74UCzGh9aCGG8ooqgPlaoNVq2XNJFvZpfsYk13dlFnNt8Pvofd7Bfm/DnX7xtjHA6Hw+FwOBwOh8PhsFS2eqeTwnUceXeywj12BeozS/FssxTgUTyNFDezwPusOP+PS+BzVnx2YLR4gek2eod6j2fFR0nhlwWj4TNSfIkUnmCBR1hwiAReZMW9pHi49ps/WXHLYFhaabqBwbC0kgXetMaRwCwLjvWrf0kpLC3jUSywYj9HWA3EGwz0slJ1srA8DiHBTSR4IN6nsNt+Z3LNvDmGFXYkro/T1vj+0LuSFcdZYeZIIUKKv7HgpM0n1+vaM1hwZ03IPb3jvSeYvMJxYoyF+DTQwmoWeJIF5xbNF825QyvbK6tYcVft8/Mmj1QnC8tZ8OvYiBB7WfH+lkVo9pTNtsKw4sHEa3JYbUjgploS3FHdctWJ9fhPvQQO9Uf+edYrknDBTSZvsIDah+8TvJ1Cf31bQiwI8iBHnl8T4x2TN1jhE/vw5cg/kwWGOxGDBN4YGjLH2lCxnmIrkckLJP59C4bgLST4ameegdMkxWtJ8Pda6I2YvMBJB1lvrt5ihamOxFD8jgW3NYgzZxs5kwdI4KuGB99JAm93FCYK+0khavzOViuTNzEoFqLWeLW94D0SHM29GKy4ixRf6NAzXkm61lyKgV80iSFwR2cJFJ4mRWnwttnc5IxA8SE7lcblVeA2GoHzOxIjgiCpJvBxLLTAsMkzpPhBm17xPQ/3rDDdBAk80Fa+EHjOdBs83LOiuf9oJXHij+smLj/VdCNBiFfHk2dL4YFzpN4Nppvpi2CjnS+OEhqzpHCvWQr0hcUiC77OCn8cocGasqdhZilQCkvLbBNmDR7YWjyFBDfYYS4uwVFxTXkEL7Ld5vpozUmmm+lPDmnerXnATKBwRePfYyEUv615yYd94l1suo0N43AyKz7Fgj835wY8UA+JQP2eBiHqPcYhEngm/yfjxhh7CVQ72Dm4yBA2w+p7pPjNIrPJr7Ydr0TeWpM3BmwuUJiI70laKKNB6N+Yov94bWAEzjJ5gZIps+XmyjZWJPhT680Y7K5OVo8zWScYu/SchevBlgzbb/fZM4tUrXrkrzNZhyN8ON38AVPxPoGXU+0T3GayDgnsSWnUmN1nL57T7LMelekzDQ5LF6a6PkyGsceSvf7N6TwK5ynEsskqJPB4WoNsJbF765dEKYUMTVZhxb1pDar3DpXt3qq0XsWKX5osUo5vzlKHyOHG1wz+1oG2sMph6VyTNVjwrnYuh5r/R31uSRFmirearEEKE22IMU/ikd1vw+Vo5xy5KbHUfD2Qxph9yQyD0+2JCR+ZrMGC+9oSo/7qUpt7WfAHkzV4FAukeHf9nc7/bIXeNf+37Q6Hw+FwOBwOh8PhMP8OfwGsTbhC5k9sGAAAAABJRU5ErkJggg=="
+        alt="external-Assistant-assistant-others-inmotus-design">
+      } @else {
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAABDCAYAAADHyrhzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD40lEQVR4nO2aW4gcRRSGj5ckGhHUoEK8RLxiUEEEF0RRUFREVJQVLyCiMioy4LIuzsz5/z6ioOAF8clovIK+6FO84IMPkmB8SAyIiUYMoqgPkVWzeIuXza4cphqaIRune1C7euuD89DVU82cn646f1W1SCKRSCQSiUQikUgkEo6ZHaWqFwG4jWTLQ1UvN7NjZTHQ7XaPBECSH5GcXygA7CD5qJmdKE3DzA4k2QHwayHpzwG8QvIBAPcDMAAvAdgCYE8Q5S8AT5jZcmkCZrac5DtBgFkALwA4vdVqLTGz1QCuyLJsHMCVJM8xs6U+hEj2AOwKomzyNomc/UiuCwlt9eRJjpF8keTMAsPkdwCv+XzS7XaPJvleaN9sZgdJrLA/MXoin5nZESQfJDm3r/liINZOTk4eAmBDuH5cYsTMlpL8OiRxoareXUKE4mRKrzAAfva3JspqA+D6kNC6iYmJg/PxX0GM3aq6yt+K0NaT2CC5NiRzC4CrqghRiHsBnB2e977EBoDt/ufNbCWAp0YU420z29+Hir8pXokkFkjelSeSZdmNAN4YRQyvRCQvAPBHuH5aYgF9B5kn8y7JjSOK8R3JNYW2OTdyEgMkvyr8cfcJ60cUYxrAc8U2r1YSoRjrc+M1QnxI8vnoxQCwAcCTI4rxenCt8YkB4IsBMW4dUYyHATxbuJ6NZs4AMBlWpduzLLvZzE4YRQxVvdSrCclPXWgv1RIzJD+uKMb37XZ7mTQJVb2nYiV5TJpGu91eNuA/hokfO53OCmkiqnqerzyHFGIOwLXSZABc4+uLfxBiVlXvlMUAgDMBvEXyz70I4dZ9TBYDrVZrSTBhY51O53CSV/tizkswgNMAnOJuc2pq6lBpMqq6CsAH4Q2Y6fV65xbvByG+Dfe3mdmp0jTM7DAAD5H8ZaBs7sqHhJmdXBAiv78bwCNN2BkXPwRytxj2LxeaLGfM7CwA3+zjN7+5HTezMyQ2Ov254GWvCkOW0etKeI83e73eMRIL7K8yhzZXbqxI/lTClW4aHx8/QOqOqh6XHw8Omdi09wt7FmXc6cVSd0jeVzKpjaHfqyX7rZG6Q3JzmaT87NX7+cFzyX7Ttd7TUNWTSh4felJd7wvghgr7HJdIXSGJsgl5JfG++SFRyXhG6gqALWUTyr2DHzBXeKu+lDpiZisrJLOn+JnBoAMdUszjpW5kWXZ7lcOh4jMK65Yyz7hJ6gb7jnO+Qlzm/X24DLHPEUeJReF4oGTsDGuYrVX6A/hE6gbJnRXFmC+xFbg3MX6QumH9j9XuyL/p/K9CVc//v3NPJBKJRCKRSCQSiYT8O/wN6SYV98yBRPUAAAAASUVORK5CYII="
+        alt="external-Assistant-assistant-others-inmotus-design">
+      }
+    </div>
 
-        <div class="text-center mb-4">
-          <button
-            class="btn text-white"
-            [ngClass]="assistantActive ? 'bg-green-500' : 'bg-blue-500'"
-            (click)="assistant()"
-          >
-            Assistent starten
-          </button>
+    <div class="text-center mb-4">
+      <button class="btn text-white" [ngClass]="assistantActive ? 'bg-green-500' : 'bg-blue-500'" (click)="assistant()">
+        {{ assistantActive ? 'Assistent auschalten' : 'Smart Assistent' }}
+      </button>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <nav class="tab-nav">
+        <button *ngFor="let tab of tabs; let i = index" class="tab-button" [class.active]="activeTab === i"
+          (click)="setActiveTab(i)">
+          <span class="mr-2">{{tab.icon}}</span>
+          {{tab.label}}
+        </button>
+      </nav>
+
+      <div class="p-6">
+        <app-personal-data-tab *ngIf="activeTab === 0" [data]="formData.personalData"
+          (dataChange)="updatePersonalData($event)"></app-personal-data-tab>
+
+        <app-unfall-details-tab *ngIf="activeTab === 1" [data]="formData.unfallDetails"
+          (dataChange)="updateUnfallDetails($event)"></app-unfall-details-tab>
+
+        <app-fahrzeug-daten-tab *ngIf="activeTab === 2" [data]="formData.fahrzeugDaten"
+          (dataChange)="updateFahrzeugDaten($event)"></app-fahrzeug-daten-tab>
+
+        <app-summary-tab *ngIf="activeTab === 3" [data]="formData"></app-summary-tab>
+      </div>
+
+      <div class="px-6 py-4 bg-gray-50 flex justify-between items-center border-t">
+        <button *ngIf="activeTab > 0" class="btn btn-secondary" (click)="previousTab()">
+          ← Zurück
+        </button>
+        <div class="flex-1"></div>
+        <div class="text-sm text-gray-500 mx-4">
+          Schritt {{activeTab + 1}} von {{tabs.length}}
         </div>
-
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <nav class="tab-nav">
-            <button 
-              *ngFor="let tab of tabs; let i = index"
-              class="tab-button"
-              [class.active]="activeTab === i"
-              (click)="setActiveTab(i)"
-            >
-              <span class="mr-2">{{tab.icon}}</span>
-              {{tab.label}}
-            </button>
-          </nav>
-
-          <div class="p-6">
-            <app-personal-data-tab
-              *ngIf="activeTab === 0"
-              [data]="formData.personalData"
-              (dataChange)="updatePersonalData($event)"
-            ></app-personal-data-tab>
-
-            <app-unfall-details-tab
-              *ngIf="activeTab === 1"
-              [data]="formData.unfallDetails"
-              (dataChange)="updateUnfallDetails($event)"
-            ></app-unfall-details-tab>
-
-            <app-fahrzeug-daten-tab
-              *ngIf="activeTab === 2"
-              [data]="formData.fahrzeugDaten"
-              (dataChange)="updateFahrzeugDaten($event)"
-            ></app-fahrzeug-daten-tab>
-
-            <app-summary-tab
-              *ngIf="activeTab === 3"
-              [data]="formData"
-            ></app-summary-tab>
-          </div>
-
-          <div class="px-6 py-4 bg-gray-50 flex justify-between items-center border-t">
-            <button 
-              *ngIf="activeTab > 0"
-              class="btn btn-secondary"
-              (click)="previousTab()"
-            >
-              ← Zurück
-            </button>
-            <div class="flex-1"></div>
-            <div class="text-sm text-gray-500 mx-4">
-              Schritt {{activeTab + 1}} von {{tabs.length}}
-            </div>
-            <div class="flex-1"></div>
-            <button 
-              *ngIf="activeTab < tabs.length - 1"
-              class="btn btn-primary"
-              (click)="nextTab()"
-            >
-              Weiter →
-            </button>
-          </div>
-        </div>
-
-        <div class="text-center mt-6 text-sm text-gray-500">
-          <p>⚠️ Alle Daten werden nur lokal in Ihrem Browser verarbeitet und nicht gespeichert.</p>
-        </div>
+        <div class="flex-1"></div>
+        <button *ngIf="activeTab < tabs.length - 1" class="btn btn-primary" (click)="nextTab()">
+          Weiter →
+        </button>
       </div>
     </div>
+
+    <div class="text-center mt-6 text-sm text-gray-500">
+      <p>⚠️ Alle Daten werden nur lokal in Ihrem Browser verarbeitet und nicht gespeichert.</p>
+    </div>
+  </div>
+</div>

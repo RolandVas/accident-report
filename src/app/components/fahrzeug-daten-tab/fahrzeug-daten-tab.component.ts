@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FahrzeugDaten } from '../../accident-data/accident-data.module';
@@ -10,7 +10,7 @@ import { FahrzeugDaten } from '../../accident-data/accident-data.module';
   templateUrl: './fahrzeug-daten-tab.component.html',
   styleUrls: ['./fahrzeug-daten-tab.component.scss']
 })
-export class FahrzeugDatenTabComponent {
+export class FahrzeugDatenTabComponent implements OnChanges {
   @Input() data: FahrzeugDaten | null = null;
   @Output() dataChange = new EventEmitter<FahrzeugDaten>();
 
@@ -37,7 +37,13 @@ export class FahrzeugDatenTabComponent {
 
   ngOnInit() {
     if (this.data) {
-      this.fahrzeugForm.patchValue(this.data);
+      this.fahrzeugForm.patchValue(this.data, { emitEvent: false });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] && changes['data'].currentValue) {
+      this.fahrzeugForm.patchValue(changes['data'].currentValue, { emitEvent: false });
     }
   }
 
